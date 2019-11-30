@@ -2,9 +2,13 @@ from config import get_arguments
 from SinGAN.manipulate import *
 from SinGAN.training import *
 import SinGAN.functions as functions
+import time
+
 
 
 if __name__ == '__main__':
+    t0 = time.time()
+
     parser = get_arguments()
     parser.add_argument('--input_dir', help='input image dir', default='Input/Images')
     parser.add_argument('--input_name', help='input image name', required=True)
@@ -28,3 +32,7 @@ if __name__ == '__main__':
         functions.adjust_scales2image(real, opt)
         train(opt, Gs, Zs, reals, NoiseAmp)
         SinGAN_generate(Gs,Zs,reals,NoiseAmp,opt)
+
+    t1 = time.time()
+    total = t1-t0   
+    print("--- the training takes %s seconds ---" % total) 

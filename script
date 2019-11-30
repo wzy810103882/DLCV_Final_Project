@@ -1,2 +1,8 @@
 # train
 python main_train.py --input_name background_001_small.png
+
+# harmoinzation
+python harmonization.py --input_name background_001_small.png --ref_name human.png --harmonization_start_scale 1
+
+# copy from vm to local
+gcloud compute scp --recurse ouchouyang@nvidia-gpu-cloud-pytorch-image-1-vm:~/DLCV_Final_Project/SinGAN/Output  /Users/ouchouyang/Desktop
