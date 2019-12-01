@@ -4,6 +4,9 @@ python main_train.py --input_name background_001_small.png
 # change min max image size and train
 python main_train.py --input_name background_001_small.png --min_size 50 --max_size 500
 
+# random samples (arbitrary size)
+python random_samples.py --input_name background_001_small.png --mode random_samples_arbitrary_sizes --gen_start_scale 0
+
 # harmoinzation
 python harmonization.py --input_name background_001_small.png --ref_name human.png --harmonization_start_scale 0
 

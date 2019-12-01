@@ -5,17 +5,17 @@ def get_arguments():
     parser = argparse.ArgumentParser()
     #parser.add_argument('--mode', help='task to be done', default='train')
     #workspace:
-    parser.add_argument('--cuda', action='store_true', help='enables cuda', default=1)
+    parser.add_argument('--cuda', action='store_true', help='enables cuda', default=1) # always enable cuda
     
     #load, input, save configurations:
     parser.add_argument('--netG', default='', help="path to netG (to continue training)")
     parser.add_argument('--netD', default='', help="path to netD (to continue training)")
     parser.add_argument('--manualSeed', type=int, help='manual seed')
-    parser.add_argument('--nc_z',type=int,help='noise # channels',default=3)
-    parser.add_argument('--nc_im',type=int,help='image # channels',default=3)
-    parser.add_argument('--out',help='output folder',default='Output')
+    parser.add_argument('--nc_z',type=int,help='noise # channels',default=3) # default three channel noise
+    parser.add_argument('--nc_im',type=int,help='image # channels',default=3) # default to have three channel image
+    parser.add_argument('--out',help='output folder',default='Output') #Output (which is gitignored)
         
-    #networks hyper parameters:
+    #networks hyper parameters: (for generator and discriminator)
     parser.add_argument('--nfc', type=int, default=32)
     parser.add_argument('--min_nfc', type=int, default=32)
     parser.add_argument('--ker_size',type=int,help='kernel size',default=3)
@@ -26,8 +26,8 @@ def get_arguments():
     #pyramid parameters:
     parser.add_argument('--scale_factor',type=float,help='pyramid scale factor',default=0.75)#pow(0.5,1/6))
     parser.add_argument('--noise_amp',type=float,help='addative noise cont weight',default=0.1)
-    parser.add_argument('--min_size',type=int,help='image minimal size at the coarser scale',default=25)
-    parser.add_argument('--max_size', type=int,help='image minimal size at the coarser scale', default=250)
+    parser.add_argument('--min_size',type=int,help='image minimal size at the coarser scale',default=25) # min width/height size ??? 
+    parser.add_argument('--max_size', type=int,help='image minimal size at the coarser scale', default=250) # max width/height size ???
 
     #optimization hyper parameters:
     parser.add_argument('--niter', type=int, default=2000, help='number of epochs to train per scale')
