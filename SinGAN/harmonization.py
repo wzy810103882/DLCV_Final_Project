@@ -4,7 +4,7 @@ from SinGAN.training import *
 from SinGAN.imresize import imresize
 from SinGAN.imresize import imresize_to_shape
 import SinGAN.functions as functions
-
+from SinGAN.util import *
 
 if __name__ == '__main__':
     parser = get_arguments() # get default parameter (config.py)
@@ -46,10 +46,10 @@ if __name__ == '__main__':
             pass
 
         real = functions.read_image(opt)
-        print("original shape of real: " + ",".join(real.shape))
+        print("original shape of real: " + tuple_to_str(real.shape))
         #print(real.shape)
         real = functions.adjust_scales2image(real, opt)
-        print("adjusted shape of real: " + ",".join(real.shape))
+        print("adjusted shape of real: " + tuple_to_str(real.shape))
         #print(real.shape)
 
         Gs, Zs, reals, NoiseAmp = functions.load_trained_pyramid(opt) # load a bunch of trained G, D and etc
@@ -60,9 +60,9 @@ if __name__ == '__main__':
         else:
             # load naively composite image and mask image
             ref = functions.read_image_dir('%s/%s' % (opt.ref_dir, opt.ref_name), opt) 
-            print("ref shape: " + ",".join(ref.shape))
+            print("ref shape: " + tuple_to_str(ref.shape))
             mask = functions.read_image_dir('%s/%s_mask%s' % (opt.ref_dir,opt.ref_name[:-4],opt.ref_name[-4:]), opt)
-            print("mask shape: " + ",".join(mask.shape))
+            print("mask shape: " + tuple_to_str(mask.shape))
 
             # some weird shape checking here
             if ref.shape[3] != real.shape[3]:
@@ -73,7 +73,7 @@ if __name__ == '__main__':
                 ref = ref[:, :, :real.shape[2], :real.shape[3]]
 
             mask = functions.dilate_mask(mask, opt) # dilate the binary mask and save it 
-            print("mask shape after dilation: " + ",".join(mask.shape))
+            print("mask shape after dilation: " + tuple_to_str(mask.shape))
 
             N = len(reals) - 1  # total stages
             n = opt.harmonization_start_scale # start injection scale

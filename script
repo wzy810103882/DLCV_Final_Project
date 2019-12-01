@@ -12,3 +12,4 @@ python harmonization.py --input_name background_001_small.png --ref_name human.p
 
 # copy from vm to local
 gcloud compute scp --recurse ouchouyang@nvidia-gpu-cloud-pytorch-image-1-vm:~/DLCV_Final_Project/SinGAN/Output  /Users/ouchouyang/Desktop
+gcloud compute scp --recurse ouchouyang@nvidia-gpu-cloud-pytorch-image-1-vm:~/DLCV_Final_Project/SinGAN/Input  /Users/ouchouyang/Desktop
