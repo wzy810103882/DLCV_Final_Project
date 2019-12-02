@@ -13,3 +13,6 @@ python harmonization.py --input_name background_001_500.png --ref_name human.png
 # copy from vm to local
 gcloud compute scp --recurse ouchouyang@nvidia-gpu-cloud-pytorch-image-1-vm:~/DLCV_Final_Project/SinGAN/Output  /Users/ouchouyang/Desktop
 gcloud compute scp --recurse ouchouyang@nvidia-gpu-cloud-pytorch-image-1-vm:~/DLCV_Final_Project/SinGAN/Input  /Users/ouchouyang/Desktop
+
+# generate masks by MaskRCNN
+python maskrcnn.py --img_path Input/Harmonization/plane.png --threshold 0.9
