@@ -60,8 +60,8 @@ for s in prediction[0]['scores']:
     if s < float(args.threshold):
         break
     i += 1
-print(i)
+
 ary = np.sum(prediction[0]['masks'].mul(255).byte().cpu().numpy()[:i, 0], axis=0)
-Image.fromarray(ary.astype('uint8'))
-mask = Image.fromarray(prediction[0]['masks'][0, 0].mul(255).byte().cpu().numpy())
+mask = Image.fromarray(ary.astype('uint8')).convert('RGB')
+
 mask.save('Input/Harmonization/'+mask_name+'.png')
