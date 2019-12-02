@@ -1,11 +1,15 @@
 # vanilla train
-python main_train.py --input_name background_001_small.png
+python main_train.py --input_name background_001_500.png
 
 # change min max image size and train
-python main_train.py --input_name background_001_small.png --min_size 50 --max_size 500
+python main_train.py --input_name background_001_500.png --min_size 50 --max_size 500
+
+# random samples (arbitrary size)
+python random_samples.py --input_name background_001_500.png --mode random_samples_arbitrary_sizes --gen_start_scale 1
 
 # harmoinzation
-python harmonization.py --input_name background_001_small.png --ref_name human.png --harmonization_start_scale 0
+python harmonization.py --input_name background_001_500.png --ref_name human.png --harmonization_start_scale 1
 
 # copy from vm to local
 gcloud compute scp --recurse ouchouyang@nvidia-gpu-cloud-pytorch-image-1-vm:~/DLCV_Final_Project/SinGAN/Output  /Users/ouchouyang/Desktop
+gcloud compute scp --recurse ouchouyang@nvidia-gpu-cloud-pytorch-image-1-vm:~/DLCV_Final_Project/SinGAN/Input  /Users/ouchouyang/Desktop
