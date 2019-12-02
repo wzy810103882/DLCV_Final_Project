@@ -38,11 +38,13 @@ if __name__ == '__main__':
         else:
             ref = functions.read_image_dir('%s/%s' % (opt.ref_dir, opt.ref_name), opt)
             mask = functions.read_image_dir('%s/%s_mask%s' % (opt.ref_dir,opt.ref_name[:-4],opt.ref_name[-4:]), opt)
+            
             if ref.shape[3] != real.shape[3]:
                 mask = imresize_to_shape(mask, [real.shape[2], real.shape[3]], opt)
                 mask = mask[:, :, :real.shape[2], :real.shape[3]]
                 ref = imresize_to_shape(ref, [real.shape[2], real.shape[3]], opt)
                 ref = ref[:, :, :real.shape[2], :real.shape[3]]
+            
             mask = functions.dilate_mask(mask, opt)
 
             N = len(reals) - 1
@@ -50,7 +52,7 @@ if __name__ == '__main__':
             in_s = imresize(ref, pow(opt.scale_factor, (N - n + 1)), opt)
             in_s = in_s[:, :, :reals[n - 1].shape[2], :reals[n - 1].shape[3]]
             in_s = imresize(in_s, 1 / opt.scale_factor, opt)
-            in_s = in_s[:, :, :reals[n].shape[2], :reals[n].shape[3]]
+            in_s = in_s[:, :, :reals[n].shape[2], :reals[n].shape[3]] 
             out = SinGAN_generate(Gs[n:], Zs[n:], reals, NoiseAmp[n:], opt, in_s, n=n, num_samples=1)
             out = (1-mask)*real+mask*out
             plt.imsave('%s/start_scale=%d.png' % (dir2save,opt.harmonization_start_scale), functions.convert_image_np(out.detach()), vmin=0, vmax=1)
