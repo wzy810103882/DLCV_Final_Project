@@ -58,6 +58,7 @@ def generate_gif(Gs,Zs,reals,NoiseAmp,opt,alpha=0.1,beta=0.9,start_scale=2,fps=1
 
             if images_prev == []:
                 I_prev = in_s
+             
             else:
                 I_prev = images_prev[i]
                 I_prev = imresize(I_prev, 1 / opt.scale_factor, opt)
