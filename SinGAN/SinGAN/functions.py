@@ -203,7 +203,7 @@ def save_networks(netG,netD,z,opt):
     torch.save(z, '%s/z_opt.pth' % (opt.outf))
 
 def adjust_scales2image(real_,opt):
-    print("shape of real before scale " + tuple_to_str(real_))
+    print("shape of real before scale " + tuple_to_str(real_.shape))
     #opt.num_scales = int((math.log(math.pow(opt.min_size / (real_.shape[2]), 1), opt.scale_factor_init))) + 1
     opt.num_scales = math.ceil((math.log(math.pow(opt.min_size / (min(real_.shape[2], real_.shape[3])), 1), opt.scale_factor_init))) + 1
     scale2stop = math.ceil(math.log(min([opt.max_size, max([real_.shape[2], real_.shape[3]])]) / max([real_.shape[2], real_.shape[3]]),opt.scale_factor_init))
@@ -214,7 +214,7 @@ def adjust_scales2image(real_,opt):
     opt.scale_factor = math.pow(opt.min_size/(min(real_.shape[2],real_.shape[3])),1/(opt.stop_scale))
     scale2stop = math.ceil(math.log(min([opt.max_size, max([real_.shape[2], real_.shape[3]])]) / max([real_.shape[2], real_.shape[3]]),opt.scale_factor_init))
     opt.stop_scale = opt.num_scales - scale2stop
-    print("shape of real after scale " + tuple_to_str(real))
+    print("shape of real after scale " + tuple_to_str(real.shape))
     return real
 
 def adjust_scales2image_SR(real_,opt):
