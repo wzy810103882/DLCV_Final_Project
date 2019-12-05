@@ -1,6 +1,8 @@
 import pygame, sys
 from PIL import Image
 import os
+import argparse
+
 
 pygame.init()
 
@@ -65,11 +67,29 @@ def mainLoop(screen, px):
     return ( topleft + bottomright )
 
 if __name__ == "__main__":
-    print(os.getcwd())
+    parser = argparse.ArgumentParser() # get default parameter (config.py)
 
-    background_loc = 'Input/Images/background_001_500.png'
-    human_loc = 'Input/Insert/human_001.png'
+    # input image and harmonization mask image
+    parser.add_argument('--background_dir', help='background image dir', required=True) 
+    parser.add_argument('--insert_dir', help='insert image dir', required=True) 
 
+    parser.add_argument('--output_dir', help='output image dir',default = 'Input/Harmonization')
+
+    #parser.add_argument('--width', help='width to be rescaled',required=True)
+    #parser.add_argument('--height', help='height to be rescaled',required=True)
+    #parser.add_argument('--output_dir', help='output dir, default to input_dir (WARNING: replaces input_dir)')
+
+    opt = parser.parse_args()
+
+    img = Image.open(opt.insert_dir)
+
+    #print(os.getcwd())
+
+    #background_loc = 'Input/Images/background_001_500.png'
+    #human_loc = 'Input/Insert/human_001.png'
+
+    background_loc = opt.background_dir
+    human_loc = opt.insert_dir
     screen, px = setup(background_loc)
     left, upper, right, lower = mainLoop(screen, px)
 
@@ -78,18 +98,28 @@ if __name__ == "__main__":
     if lower < upper:
         lower, upper = upper, lower 
 
+    print("crop height" + str(abs(upper -lower)))
+    print("crop width" + str(abs(left-right)))
+
     background = Image.open(background_loc)
+
+    print("bg height" + str(background.size[1]))
+    print("bg width" + str(background.size[0]))
+
+     
     human = Image.open(human_loc)
     real = background.copy() 
     #print(upper)
     #print(lower)
     human_background_ratio = abs(upper - lower)  / background.size[1]
-    scale = background.size[0] * human_background_ratio / human.size[0]
+    scale = background.size[1] * human_background_ratio / human.size[1]
 
     width, height = int(human.size[0] * scale), int(human.size[1] * scale)
     #print(width)
     #print(height)
     human = human.resize((width, height), Image.ANTIALIAS)
+    print("human height" + str(human.size[1]))
+    print("human width" + str(human.size[0]))
     #human.show()
 
     bg_width, bg_height = background.size
@@ -133,11 +163,23 @@ if __name__ == "__main__":
 
     pygame.display.quit()
 
-
-    ref_loc = 'Input/Harmonization/human.png'
+    output_dir = opt.output_dir
+    #ref_loc = 'Input/Harmonization/human.png'
     #real_loc = 'Data/harmonization/real.png' # background 
-    mask_loc = 'Input/Harmonization/human_mask.png'
+    #mask_loc = 'Input/Harmonization/human_mask.png'
 
+
+    counter = 1
+    ref_loc = output_dir + "/" + "human{}.png"
+    while os.path.isfile(ref_loc.format(counter)):
+        counter += 1
+    ref_loc = ref_loc.format(counter)
+
+    #ref_loc = output_dir + '/human.png'
+    mask_loc = ref_loc[:-4] + "_mask" + ".png"
+    
+    print(ref_loc)
+    print(mask_loc)
     ref.save(ref_loc)
     #real.save(real_loc)
     mask.save(mask_loc)
