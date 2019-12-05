@@ -162,23 +162,6 @@ def read_image(opt):
     x = x[:,0:3,:,:]
     return x
 
-def read_arbitrary_image(loc):
-    #x = img.imread('%s/%s' % (opt.input_dir,opt.input_name))
-    x = img.imread(loc)
-
-    #if opt.nc_im == 3:
-    x = x[:,:,:,None]
-    x = x.transpose((3, 2, 0, 1))/255
-    #else:
-    #    x = color.rgb2gray(x)
-    #    x = x[:,:,None,None]
-    #    x = x.transpose(3, 2, 0, 1)
-    x = torch.from_numpy(x)
-    x = move_to_gpu(x)
-    x = x.type(torch.cuda.FloatTensor)
-    x = norm(x)
-    x = x[:,0:3,:,:]
-    return x
 
 
 def read_image_dir(dir,opt):
@@ -291,8 +274,6 @@ def generate_dir2save(opt):
         dir2save = 'TrainedModels/%s/scale_factor=%f_noise_padding' % (opt.input_name[:-4], opt.scale_factor_init)
     elif (opt.mode == 'paint_train') :
         dir2save = 'TrainedModels/%s/scale_factor=%f_paint/start_scale=%d' % (opt.input_name[:-4], opt.scale_factor_init,opt.paint_start_scale)
-    #elif opt.st_input_name: # style transfer
-    #    dir2save = '%s/StyleTransfer/%s/gen_start_scale=%d' % (opt.out,  opt.st_input_name[:-4] + "_" + opt.input_name[:-4], opt.gen_start_scale)
     elif opt.mode == 'random_samples':
         dir2save = '%s/RandomSamples/%s/gen_start_scale=%d' % (opt.out,opt.input_name[:-4], opt.gen_start_scale)
     elif opt.mode == 'random_samples_arbitrary_sizes':
@@ -303,6 +284,8 @@ def generate_dir2save(opt):
         dir2save = '%s/SR/%s' % (opt.out, opt.sr_factor)
     elif opt.mode == 'harmonization':
         dir2save = '%s/Harmonization/%s/%s_out' % (opt.out, opt.input_name[:-4],opt.ref_name[:-4])
+    elif opt.mode == 'style_transfer': # style transfer
+        dir2save = '%s/StyleTransfer/%s/%s_out' % (opt.out,  opt.st_input_name[:-4], opt.st_input_name[:-4])
     elif opt.mode == 'editing':
         dir2save = '%s/Editing/%s/%s_out' % (opt.out, opt.input_name[:-4],opt.ref_name[:-4])
     elif opt.mode == 'paint2image':

@@ -10,7 +10,7 @@ if __name__ == '__main__':
 
     parser.add_argument('--input_dir', help='input image dir', default='Input/Images')
     parser.add_argument('--input_name', help='input image name', required=True)
-    parser.add_argument('--st_input_name', help='style transfer image name (make sure to have same size as input image)')
+    #parser.add_argument('--st_input_name', help='style transfer image name (make sure to have same size as input image)')
 
     parser.add_argument('--mode', help='random_samples | random_samples_arbitrary_sizes', default='train', required=True)
     # for random_samples:
@@ -25,11 +25,11 @@ if __name__ == '__main__':
     reals = []
     NoiseAmp = []
     
-    dir2save = None
-    if opt.st_input_name:
-        dir2save = '%s/StyleTransfer/%s/gen_start_scale=%d' % (opt.out,  opt.st_input_name[:-4] + "_" + opt.input_name[:-4], opt.gen_start_scale)
-    else:    
-        dir2save = functions.generate_dir2save(opt)
+    #dir2save = None
+    #if opt.st_input_name:
+    #    dir2save = '%s/StyleTransfer/%s/gen_start_scale=%d' % (opt.out,  opt.st_input_name[:-4] + "_" + opt.input_name[:-4], opt.gen_start_scale)
+    #else:    
+    dir2save = functions.generate_dir2save(opt)
     if dir2save is None:
         print('task does not exist')
 
@@ -52,15 +52,15 @@ if __name__ == '__main__':
         except OSError:
             pass
         
-        if opt.st_input_name:
+        #if opt.st_input_name:
+        #
+        #    real = functions.read_arbitrary_image('%s/%s' % (opt.input_dir,opt.st_input_name))
+        #    functions.adjust_scales2image(real, opt)
+        #    Gs, Zs, reals, NoiseAmp = functions.load_trained_pyramid(opt)
+        #    in_s = functions.generate_in2coarsest(reals,1,1,opt)
+        #    SinGAN_generate(Gs, Zs, reals, NoiseAmp, opt, gen_start_scale=opt.gen_start_scale)
 
-            real = functions.read_arbitrary_image('%s/%s' % (opt.input_dir,opt.st_input_name))
-            functions.adjust_scales2image(real, opt)
-            Gs, Zs, reals, NoiseAmp = functions.load_trained_pyramid(opt)
-            in_s = functions.generate_in2coarsest(reals,1,1,opt)
-            SinGAN_generate(Gs, Zs, reals, NoiseAmp, opt, gen_start_scale=opt.gen_start_scale)
-
-        elif opt.mode == 'random_samples':
+        if opt.mode == 'random_samples':
             real = functions.read_image(opt)
             functions.adjust_scales2image(real, opt)
             Gs, Zs, reals, NoiseAmp = functions.load_trained_pyramid(opt)
