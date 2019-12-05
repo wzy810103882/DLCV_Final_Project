@@ -3,9 +3,12 @@ python main_train.py --input_name background_001_500.png
 
 # change min max image size and train
 python main_train.py --input_name background_001_500.png --min_size 50 --max_size 500
+python main_train.py --input_name orange.png --min_size 5 --max_size 50
 
 # random samples (arbitrary size)
 python random_samples.py --input_name background_001_500.png --mode random_samples_arbitrary_sizes --gen_start_scale 1
+python random_samples.py --input_name orange.png --mode random_samples_arbitrary_sizes --gen_start_scale 1
+python random_samples.py --input_name orange.png --mode random_samples --gen_start_scale 1
 
 # harmoinzation
 python harmonization.py --input_name background_001_500.png --ref_name human.png --harmonization_start_scale 1
@@ -16,3 +19,6 @@ gcloud compute scp --recurse ouchouyang@nvidia-gpu-cloud-pytorch-image-1-vm:~/DL
 
 # generate masks by MaskRCNN
 python maskrcnn.py --img_path Input/Harmonization/plane.png --threshold 0.9
+
+# set project 
+gcloud config set project dlcv-258102

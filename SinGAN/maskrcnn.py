@@ -26,6 +26,7 @@ img.save('Input/Harmonization/'+img_name)
 trans1 = T.ToTensor()
 img = trans1(img)
 
+def generate_rgba():
 
 def get_instance_segmentation_model(num_classes):
     # load an instance segmentation model pre-trained on COCO
@@ -64,4 +65,4 @@ for s in prediction[0]['scores']:
 ary = np.sum(prediction[0]['masks'].mul(255).byte().cpu().numpy()[:i, 0], axis=0)
 mask = Image.fromarray(ary.astype('uint8')).convert('RGB')
 
-mask.save('Input/Harmonization/'+mask_name+'.png')
+mask.save('Input/Harmonization/'+ mask_name +'.png')

@@ -10,7 +10,7 @@ Notes:
 
 In each stage, scaling up is approximately 4/3, thus 8 upscaling would accumulate to approximately 10x ((4/3)^8 = 10)
 
---max_size controls the maximum resolution that the generator sees
+--max_size controls the maximum resolution that the generator sees ?????
 
 harmonization uses dilated mask (for the purpose of incorporating more context ???)
 

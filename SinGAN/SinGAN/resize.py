@@ -14,6 +14,7 @@ if __name__ == '__main__':
     opt = parser.parse_args()
 
     img = Image.open(opt.input_dir)
+    
     img = img.resize((int(opt.width), int(opt.height)))
 
     if not opt.output_dir:
