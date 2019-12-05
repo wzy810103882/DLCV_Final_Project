@@ -163,7 +163,7 @@ def read_image(opt):
     return x
 
 def read_arbitrary_image(loc):
-    x = img.imread('%s/%s' % (opt.input_dir,opt.input_name))
+    #x = img.imread('%s/%s' % (opt.input_dir,opt.input_name))
     x = img.imread(loc)
 
     #if opt.nc_im == 3:
