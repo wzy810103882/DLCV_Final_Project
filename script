@@ -13,7 +13,7 @@ python style_transfer.py --input_name orange.png --st_input_name baseball.png --
 
 # random samples (same size and arbitrary size)
 python random_samples.py --input_name background_001_500.png --mode random_samples_arbitrary_sizes --gen_start_scale 1
-python random_samples.py --input_name orange.png --mode random_samples_arbitrary_sizes --gen_start_scale 1
+python random_samples.py --input_namme orange.png --mode random_samples_arbitrary_sizes --gen_start_scale 1
 python random_samples.py --input_name orange.png --mode random_samples --gen_start_scale 1
 
 # harmoinzation

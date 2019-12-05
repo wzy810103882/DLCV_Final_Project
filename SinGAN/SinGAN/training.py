@@ -19,7 +19,7 @@ def train(opt,Gs,Zs,reals,NoiseAmp):
     real = imresize(real_,opt.scale1,opt)
     print("real after imresize " +  tuple_to_str(real.shape))
     reals = functions.creat_reals_pyramid(real,reals,opt)
-    print("length of reals " + len(reals))
+    print("length of reals " + str(len(reals)) )
     for i in range(len(reals)):
         print("real " + str(i) + " is of shape " + tuple_to_str(reals[i].shape))
     nfc_prev = 0
