@@ -13,7 +13,7 @@ from SinGAN.imresize import imresize
 import os
 import random
 from sklearn.cluster import KMeans
-
+from SinGAN.util import tuple_to_str
 
 # custom weights initialization called on netG and netD
 
@@ -162,6 +162,25 @@ def read_image(opt):
     x = x[:,0:3,:,:]
     return x
 
+def read_arbitrary_image(loc):
+    x = img.imread('%s/%s' % (opt.input_dir,opt.input_name))
+    x = img.imread(loc)
+
+    #if opt.nc_im == 3:
+    x = x[:,:,:,None]
+    x = x.transpose((3, 2, 0, 1))/255
+    #else:
+    #    x = color.rgb2gray(x)
+    #    x = x[:,:,None,None]
+    #    x = x.transpose(3, 2, 0, 1)
+    x = torch.from_numpy(x)
+    x = move_to_gpu(x)
+    x = x.type(torch.cuda.FloatTensor)
+    x = norm(x)
+    x = x[:,0:3,:,:]
+    return x
+
+
 def read_image_dir(dir,opt):
     x = img.imread('%s' % (dir))
     x = np2torch(x,opt)
@@ -201,6 +220,7 @@ def save_networks(netG,netD,z,opt):
     torch.save(z, '%s/z_opt.pth' % (opt.outf))
 
 def adjust_scales2image(real_,opt):
+    print("shape of real before scale " + tuple_to_str(real_))
     #opt.num_scales = int((math.log(math.pow(opt.min_size / (real_.shape[2]), 1), opt.scale_factor_init))) + 1
     opt.num_scales = math.ceil((math.log(math.pow(opt.min_size / (min(real_.shape[2], real_.shape[3])), 1), opt.scale_factor_init))) + 1
     scale2stop = math.ceil(math.log(min([opt.max_size, max([real_.shape[2], real_.shape[3]])]) / max([real_.shape[2], real_.shape[3]]),opt.scale_factor_init))
@@ -211,6 +231,7 @@ def adjust_scales2image(real_,opt):
     opt.scale_factor = math.pow(opt.min_size/(min(real_.shape[2],real_.shape[3])),1/(opt.stop_scale))
     scale2stop = math.ceil(math.log(min([opt.max_size, max([real_.shape[2], real_.shape[3]])]) / max([real_.shape[2], real_.shape[3]]),opt.scale_factor_init))
     opt.stop_scale = opt.num_scales - scale2stop
+    print("shape of real after scale " + tuple_to_str(real))
     return real
 
 def adjust_scales2image_SR(real_,opt):
@@ -270,6 +291,8 @@ def generate_dir2save(opt):
         dir2save = 'TrainedModels/%s/scale_factor=%f_noise_padding' % (opt.input_name[:-4], opt.scale_factor_init)
     elif (opt.mode == 'paint_train') :
         dir2save = 'TrainedModels/%s/scale_factor=%f_paint/start_scale=%d' % (opt.input_name[:-4], opt.scale_factor_init,opt.paint_start_scale)
+    #elif opt.st_input_name: # style transfer
+    #    dir2save = '%s/StyleTransfer/%s/gen_start_scale=%d' % (opt.out,  opt.st_input_name[:-4] + "_" + opt.input_name[:-4], opt.gen_start_scale)
     elif opt.mode == 'random_samples':
         dir2save = '%s/RandomSamples/%s/gen_start_scale=%d' % (opt.out,opt.input_name[:-4], opt.gen_start_scale)
     elif opt.mode == 'random_samples_arbitrary_sizes':

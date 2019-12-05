@@ -1,5 +1,6 @@
 import pygame, sys
 from PIL import Image
+
 pygame.init()
 
 def displayImage(screen, px, topleft, prior):

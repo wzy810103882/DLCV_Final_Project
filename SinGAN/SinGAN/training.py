@@ -7,13 +7,21 @@ import torch.utils.data
 import math
 import matplotlib.pyplot as plt
 from SinGAN.imresize import imresize
+from SinGAN.util import tuple_to_str
+
+
 
 def train(opt,Gs,Zs,reals,NoiseAmp):
+    print("start training")
     real_ = functions.read_image(opt)
     in_s = 0
     scale_num = 0
     real = imresize(real_,opt.scale1,opt)
+    print("real after imresize " +  tuple_to_str(real.shape))
     reals = functions.creat_reals_pyramid(real,reals,opt)
+    print("length of reals " + len(reals))
+    for i in range(len(reals)):
+        print("real " + str(i) + " is of shape " + tuple_to_str(reals[i].shape))
     nfc_prev = 0
 
     while scale_num<opt.stop_scale+1:
