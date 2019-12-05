@@ -52,6 +52,7 @@ if __name__ == "__main__":
     #widths, heights = zip(*(i.size for i in images))
     #new_width  = 680
     #new_height = new_width * height / width 
+    print(result_imgs[0].size)
     train_img = train_img.resize(result_imgs[0].size, Image.ANTIALIAS)
     test_img = test_img.resize(result_imgs[0].size, Image.ANTIALIAS)
 
@@ -79,12 +80,13 @@ if __name__ == "__main__":
     result.paste(train_img, (0,height))
 
     x_offset = width
-    for i in range(math.ceil(len(result_imgs) / 2) + 1): # some logic issue here, might have two extra spac
+    for i in range(math.ceil(len(result_imgs) / 2)): # some logic issue here, might have two extra spac
         result.paste(result_imgs[i],(x_offset ,0))
         x_offset += width
         print(i)
+    print("done")    
     x_offset = width    
-    for i in range(math.ceil(len(result_imgs) / 2) + 1, len(result_imgs)):
+    for i in range(math.ceil(len(result_imgs) / 2), len(result_imgs)):
         result.paste(result_imgs[i],(x_offset ,height))    
         x_offset += width 
         print(i)
