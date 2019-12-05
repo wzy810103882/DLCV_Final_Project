@@ -1,5 +1,6 @@
 import pygame, sys
 from PIL import Image
+import os
 
 pygame.init()
 
@@ -64,9 +65,10 @@ def mainLoop(screen, px):
     return ( topleft + bottomright )
 
 if __name__ == "__main__":
-    
-    background_loc = 'Data/background/background_001_small.png'
-    human_loc = 'Data/insert/human_001.png'
+    print(os.getcwd())
+
+    background_loc = 'Input/Images/background_001_500.png'
+    human_loc = 'Input/Insert/human_001.png'
 
     screen, px = setup(background_loc)
     left, upper, right, lower = mainLoop(screen, px)
@@ -132,12 +134,12 @@ if __name__ == "__main__":
     pygame.display.quit()
 
 
-    ref_loc = 'Data/harmonization/ref.png'
-    real_loc = 'Data/harmonization/real.png' # background 
-    mask_loc = 'Data/harmonization/mask.png'
+    ref_loc = 'Input/Harmonization/human.png'
+    #real_loc = 'Data/harmonization/real.png' # background 
+    mask_loc = 'Input/Harmonization/human_mask.png'
 
     ref.save(ref_loc)
-    real.save(real_loc)
+    #real.save(real_loc)
     mask.save(mask_loc)
 
 
