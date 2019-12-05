@@ -60,7 +60,7 @@ if __name__ == '__main__':
         else:
             # load naively composite image and mask image
             st_input = functions.read_image_dir('%s/%s' % (opt.st_input_dir, opt.st_input_name), opt) 
-            print("ref shape: " + tuple_to_str(ref.shape))
+            print("ref shape: " + tuple_to_str(st_input.shape))
             #mask = functions.read_image_dir('%s/%s_mask%s' % (opt.ref_dir,opt.ref_name[:-4],opt.ref_name[-4:]), opt)
             #print("mask shape: " + tuple_to_str(mask.shape))
 
