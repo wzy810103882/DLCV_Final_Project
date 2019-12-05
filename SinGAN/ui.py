@@ -63,6 +63,7 @@ def mainLoop(screen, px):
     return ( topleft + bottomright )
 
 if __name__ == "__main__":
+    
     background_loc = 'Data/background/background_001_small.png'
     human_loc = 'Data/insert/human_001.png'
 
