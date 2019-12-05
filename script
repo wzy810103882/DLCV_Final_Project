@@ -9,8 +9,8 @@ python main_train.py --input_name orange.png --min_size 5 --max_size 50
 python paint2image.py --input_name orange.png --ref_name baseball.png --paint_start_scale 0
 
 # style transfer
-python style_transfer.py --input_name orange.png --st_input_name baseball.png --mode style_transfer --gen_start_scale 1
-
+python style_transfer.py --input_name orange.png --st_input_name baseball.png --mode style_transfer --st_start_scale 1
+-
 # random samples (same size and arbitrary size)
 python random_samples.py --input_name background_001_500.png --mode random_samples_arbitrary_sizes --gen_start_scale 1
 python random_samples.py --input_namme orange.png --mode random_samples_arbitrary_sizes --gen_start_scale 1
