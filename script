@@ -32,3 +32,5 @@ gcloud beta compute --project "dlcv-258102" ssh --zone "us-east1-b" "nvidia-gpu-
 gcloud compute scp --recurse ouchouyang@nvidia-gpu-cloud-pytorch-image-1-vm:~/DLCV_Final_Project/SinGAN/Output  /Users/ouchouyang/Desktop
 gcloud compute scp --recurse ouchouyang@nvidia-gpu-cloud-pytorch-image-1-vm:~/DLCV_Final_Project/SinGAN/Input  /Users/ouchouyang/Desktop
 
+# copy from local to vm
+gcloud compute scp --recurse /Users/ouchouyang/Desktop/street ouchouyang@nvidia-gpu-cloud-pytorch-image-1-vm:~/DLCV_Final_Project/SinGAN/TrainedModels  
